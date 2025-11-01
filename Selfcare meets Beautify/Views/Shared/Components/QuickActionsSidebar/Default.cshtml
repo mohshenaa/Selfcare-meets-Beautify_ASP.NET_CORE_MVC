@@ -1,0 +1,173 @@
+﻿@model List<QuickAction>
+
+<div id="quickActionsSidebar" class="quick-actions-sidebar">
+    <div class="sidebar-header">
+        <h5>Quick Actions</h5>
+        <button type="button" class="btn-close" onclick="closeQuickActions()"></button>
+    </div>
+
+    <div class="sidebar-content">
+        <div class="quick-actions-list">
+            @foreach (var action in Model)
+            {
+                <a href="@action.Url" class="quick-action-item">
+                    <div class="action-icon">
+                        <i class="@action.Icon"></i>
+                    </div>
+                    <div class="action-content">
+                        <div class="action-title">@action.Title</div>
+                        <div class="action-description">@action.Description</div>
+                    </div>
+                    @if (!string.IsNullOrEmpty(action.Badge))
+                    {
+                        <span class="action-badge badge bg-@action.BadgeColor">@action.Badge</span>
+                    }
+                </a>
+            }
+        </div>
+    </div>
+</div>
+
+<style>
+    .quick-actions-sidebar {
+        position: fixed;
+        top: 0;
+        right: -400px;
+        width: 350px;
+        height: 100vh;
+        background: white;
+        box-shadow: -2px 0 10px rgba(0,0,0,0.1);
+        z-index: 1050;
+        transition: right 0.3s ease-in-out;
+        display: flex;
+        flex-direction: column;
+    }
+
+        .quick-actions-sidebar.show {
+            right: 0;
+        }
+
+    .sidebar-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem 1.5rem;
+        border-bottom: 1px solid #dee2e6;
+        background: #f8f9fa;
+    }
+
+        .sidebar-header h5 {
+            margin: 0;
+            color: #495057;
+        }
+
+    .sidebar-content {
+        flex: 1;
+        padding: 1rem;
+        overflow-y: auto;
+    }
+
+    .quick-actions-list {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .quick-action-item {
+        display: flex;
+        align-items: center;
+        padding: 1rem;
+        border: 1px solid #e9ecef;
+        border-radius: 8px;
+        text-decoration: none;
+        color: #495057;
+        transition: all 0.2s ease;
+        position: relative;
+    }
+
+        .quick-action-item:hover {
+            background: #f8f9fa;
+            border-color: #007bff;
+            transform: translateX(5px);
+            text-decoration: none;
+            color: #495057;
+        }
+
+    .action-icon {
+        width: 40px;
+        height: 40px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 1rem;
+        flex-shrink: 0;
+    }
+
+        .action-icon i {
+            color: white;
+            font-size: 1.1rem;
+        }
+
+    .action-content {
+        flex: 1;
+    }
+
+    .action-title {
+        font-weight: 600;
+        margin-bottom: 0.2rem;
+    }
+
+    .action-description {
+        font-size: 0.8rem;
+        color: #6c757d;
+    }
+
+    .action-badge {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+    }
+
+    .sidebar-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.5);
+        z-index: 1040;
+        display: none;
+    }
+
+        .sidebar-overlay.show {
+            display: block;
+        }
+</style>
+
+<script>
+    function showQuickActions() {
+        document.getElementById('quickActionsSidebar').classList.add('show');
+        document.getElementById('sidebarOverlay').classList.add('show');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeQuickActions() {
+        document.getElementById('quickActionsSidebar').classList.remove('show');
+        document.getElementById('sidebarOverlay').classList.remove('show');
+        document.body.style.overflow = 'auto';
+    }
+
+    // Close sidebar when clicking on overlay
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('sidebarOverlay').addEventListener('click', closeQuickActions);
+
+        // Close with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeQuickActions();
+            }
+        });
+    });
+</script>

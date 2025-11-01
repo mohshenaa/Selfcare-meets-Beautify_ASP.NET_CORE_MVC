@@ -1,0 +1,85 @@
+﻿@model Selfcare_meets_Beautify.Models.Brand
+
+@{
+    ViewData["Title"] = "Create Brand with Products";
+}
+
+<div class="container-fluid px-4">
+    <form asp-action="Create" method="post" enctype="multipart/form-data" id="brandForm">
+        <!-- Brand Section - Top Table -->
+        <div class="card border-0 shadow-sm mb-4">
+            <div class="card-header bg-light py-2">
+                <h5 class="mb-0 fw-bold text-dark">Brand</h5>
+            </div>
+            <div class="card-body p-0">
+                <table class="table table-bordered mb-0">
+                    <thead>
+                        <tr class="table-light text-center">
+                            <th style="width: 30%">Brand Name</th>
+                            <th style="width: 40%">Brand Logo</th>
+                            <th style="width: 30%">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="align-middle ">
+                                <input asp-for="Name" class="form-control form-control-sm border" placeholder="Enter brand name" />
+                                <span asp-validation-for="Name" class="text-danger small"></span>
+                            </td>
+                            <td class="align-middle">
+                                <div class="d-flex align-items-center">
+                                    <div class="flex-grow-1">
+                                        <label for="logoFile" class="btn btn-outline-primary btn-sm mb-1 cursor-pointer">
+                                            Choose Logo
+                                        </label>
+                                        <input type="file" asp-for="LogoFile" class="d-none" id="logoFile" />
+                                        <div class="small text-muted" id="logoFileName">No file chosen</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="align-middle ">
+                                <div class="d-flex justify-content-start gap-2">
+                                    <button type="submit" class="btn btn-primary  cursor-pointer">
+                                        <i class="fas fa-save me-1"></i> Create
+                                    </button>
+                                    <button type="reset" class="btn btn-outline-secondary ">Reset</button>
+                                    <a asp-action="Index" class="btn btn-outline-dark ">Cancel</a>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Products Section - Bottom Table -->
+        <div class="card border-0 shadow-sm">
+            <div class="card-header bg-light py-2 d-flex justify-content-between align-items-center">
+                <h5 class="mb-0 fw-bold text-dark">Product</h5>
+                <button type="submit" name="operation" value="add" class="btn btn-success btn-sm">
+                    <i class="fas fa-plus me-1"></i> Add Product
+                </button>
+            </div>
+            <div class="card-body p-0">
+                <div id="productsContainer">
+                    @for (int i = 0; i < Model.Products.Count; i++)
+                    {
+                        <partial name="_ProductPartial" model="Model" view-data="@(new ViewDataDictionary(ViewData) { { "Index", i } })" />
+                    }
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            // File name display for brand logo
+            $('#logoFile').change(function() {
+                var fileName = $(this).val().split('\\').pop();
+                $('#logoFileName').text(fileName || 'No file chosen');
+            });
+        });
+    </script>
+}

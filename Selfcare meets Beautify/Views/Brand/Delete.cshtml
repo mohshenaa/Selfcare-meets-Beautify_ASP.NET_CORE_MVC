@@ -1,0 +1,126 @@
+﻿@model Selfcare_meets_Beautify.Models.Brand
+
+@{
+    ViewData["Title"] = "Delete Brand";
+}
+
+<style>
+    .btn-group{
+        display:flex;
+        gap:15px;
+    }
+</style>
+
+<div class="container-fluid px-4">
+
+
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card border-0 shadow-sm">
+                <div class="card-header bg-danger text-white">
+                    <h4 class="mb-0"><i class="fas fa-exclamation-triangle me-2"></i>Delete Confirmation</h4>
+                </div>
+                <div class="card-body">
+                    <div class="alert alert-danger mt-4">
+                        <div class="d-flex">
+                            <div class="flex-shrink-0">
+                                <i class="fas fa-exclamation-circle fa-2x"></i>
+                            </div>
+                            <div class="flex-grow-1 ms-3">
+                                <h6 class="alert-heading">Final Confirmation Required</h6>
+                                <p class="mb-0">
+                                    You are about to delete this brand .Deleting this brand will permanently remove <strong>@Model.Name</strong>
+                                    and all <strong>@Model.Products.Count</strong> associated products from the system.
+                                    This action cannot be reversed.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <!-- Brand Information -->
+                        <div class="col-md-6">
+                            <div class="card border-warning">
+                                <div class="card-header bg-warning">
+                                    <h6 class="mb-0">Brand Information</h6>
+                                </div>
+                                <div class="card-body">
+                                    @if (!string.IsNullOrEmpty(Model.LogoUrl))
+                                    {
+                                        <div class="text-center mb-3">
+                                            <img src="@Model.LogoUrl" class="img-fluid rounded" style="max-height: 100px;" alt="@Model.Name Logo" />
+                                        </div>
+                                    }
+                                    <dl class="row mb-0">
+                                        <dt class="col-sm-5">Brand Name:</dt>
+                                        <dd class="col-sm-7 fw-bold text-danger">@Model.Name</dd>
+
+                                        <dt class="col-sm-5">Total Products:</dt>
+                                        <dd class="col-sm-7">
+                                            <span class="badge bg-danger">@Model.Products.Count</span>
+                                        </dd>
+                                    </dl>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-6">
+                            <div class="card border-danger">
+                                <div class="card-header bg-danger text-white">
+                                    <h6 class="mb-0">Products to be Deleted</h6>
+                                </div>
+                                <div class="card-body">
+                                    @if (Model.Products.Any())
+                                    {
+                                        <ul class="list-group list-group-flush">
+                                            @foreach (var product in Model.Products.Take(5))
+                                            {
+                                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                    <span>@product.Name</span>
+
+                                                </li>
+                                            }
+                                            @if (Model.Products.Count > 5)
+                                            {
+                                                <li class="list-group-item text-center text-muted">
+                                                    and @(Model.Products.Count - 5) more products...
+                                                </li>
+                                            }
+                                        </ul>
+                                    }
+                                    else
+                                    {
+                                        <p class="text-muted mb-0">No products associated with this brand.</p>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+
+                   
+                </div>
+                <!-- Delete Form -->
+                <form asp-action="Delete" method="post">
+                    <input type="hidden" asp-for="Id" />
+
+                    <div class="btn-group ">
+
+
+                        <a asp-action="Index" class="btn btn-outline-secondary">
+                            <i class="fas fa-arrow-left me-2"></i> Back to List
+                        </a>
+                        <a asp-action="Details" asp-route-id="@Model.Id" class="btn btn-outline-primary">
+                            <i class="fas fa-info-circle me-2"></i> View Details
+                        </a>
+                        <button type="submit" class="btn btn-danger me-2">
+                            <i class="fas fa-trash me-2"></i> Confirm Delete
+                        </button>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

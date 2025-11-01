@@ -1,0 +1,41 @@
+﻿@model Category
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h2 class="text-center">Delete</h2>
+<br />
+<div class="container d-flex justify-content-center">
+    <div class="card col-md-4 border-3">
+        <div class="card-header bg-danger text-white">
+            <h5 class="mb-0">Delete Category?</h5>
+        </div>
+        <div class="card-body">
+            <h5 class="text-danger mb-4">Are you sure you want to delete this?</h5>
+
+            <dl class="row mb-3">
+                <dt class="col-sm-6">
+                    @Html.DisplayNameFor(model => model.Type)
+                </dt>
+                <dd class="col-sm-6">
+                    @Html.DisplayFor(model => model.Type)
+                </dd>
+            </dl>
+        </div>
+        <div class="card-footer">
+            <form asp-action="Delete">
+                <input type="hidden" asp-for="Id" />
+                <div class="btn-group d-flex justify-content-between gap-2 ">
+                    <a asp-action="Index" class="btn btn-secondary flex-fill btn-lg">Cancle</a>
+                    <input type="submit" value="Delete" class="btn btn-danger flex-fill btn-lg" />
+                   
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+<br />

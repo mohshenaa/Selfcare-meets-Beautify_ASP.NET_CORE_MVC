@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36603.0 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Selfcare meets Beautify", "Selfcare meets Beautify\Selfcare meets Beautify.csproj", "{1A24DB8C-D3D7-4DC5-84F7-5AC07D4248AF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1A24DB8C-D3D7-4DC5-84F7-5AC07D4248AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A24DB8C-D3D7-4DC5-84F7-5AC07D4248AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A24DB8C-D3D7-4DC5-84F7-5AC07D4248AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A24DB8C-D3D7-4DC5-84F7-5AC07D4248AF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {19EE4144-900E-422F-A04F-DAD27D8F0DA8}
+	EndGlobalSection
+EndGlobal

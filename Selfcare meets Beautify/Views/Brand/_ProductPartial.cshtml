@@ -1,0 +1,161 @@
+﻿@model Selfcare_meets_Beautify.Models.Brand
+
+@{
+    int index = (int)ViewData["Index"];
+    bool isEdit = (bool)(ViewData["IsEdit"] ?? false);
+    var product = Model.Products[index];
+}
+
+<div class="product-item">
+    <table class="table table-bordered mb-3">
+        <thead>
+            <tr class="table-light">
+                <th colspan="4" class="py-2">
+                    Product @(index + 1)
+                    @if (isEdit && product.Id > 0)
+                    {
+                        <span class="badge bg-info ms-2">Existing</span>
+                        <input type="hidden" name="Products[@index].Id" value="@product.Id" />
+                    }
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Product Name and Image Row -->
+            <tr>
+                <td style="width: 25%" class="align-middle">
+                    <label class="form-label fw-semibold small mb-1">Product Name</label>
+                    <input name="Products[@index].Name" class="form-control form-control-sm border" placeholder="Enter product name" value="@product.Name" />
+                    <span class="text-danger small" data-valmsg-for="Products[@index].Name" data-valmsg-replace="true"></span>
+                </td>
+                <td style="width: 25%" class="align-middle">
+                    <label class="form-label fw-semibold small mb-1">
+                        @if (isEdit && !string.IsNullOrEmpty(product.ImageUrl))
+                        {
+                            <text>Upload New Image</text>
+                        }
+                        else
+                        {
+                            <text>Product Image</text>
+                        }
+                    </label>
+                    <div class="d-flex align-items-center">
+                        <div class="flex-grow-1">
+                            <label for="productImage_@index" class="btn btn-outline-primary btn-sm mb-1 cursor-pointer">
+                                Choose File
+                            </label>
+                            <input type="file" name="Products[@index].ImageFile" class="d-none" id="productImage_@index" />
+                            <div class="small text-muted" id="productImageName_@index">
+                                @if (isEdit && !string.IsNullOrEmpty(product.ImageUrl))
+                                {
+                                    <text>Current: @System.IO.Path.GetFileName(product.ImageUrl)</text>
+                                }
+                                else
+                                {
+                                    <text>No file chosen</text>
+                                }
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Current Image Display (for Edit mode) -->
+                    @if (isEdit && !string.IsNullOrEmpty(product.ImageUrl))
+                    {
+                        <div class="mt-2">
+                            <img src="@product.ImageUrl" class="img-fluid rounded border" style="max-height: 50px;" alt="@product.Name" />
+                            <div class="mt-1">
+                                <a href="@product.ImageUrl" target="_blank" class="btn btn-outline-info btn-sm">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <input type="hidden" name="Products[@index].ImageUrl" value="@product.ImageUrl" />
+                    }
+                </td>
+                <td style="width: 25%" class="align-middle">
+                    <label class="form-label fw-semibold small mb-1">Price</label>
+                    <div class="input-group input-group-sm">
+                        <input name="Products[@index].Price" class="form-control border" type="number" step="0.01" placeholder="0.00" value="@product.Price" />
+                        <span class="input-group-text bg-white border">TK</span>
+                    </div>
+                    <span class="text-danger small" data-valmsg-for="Products[@index].Price" data-valmsg-replace="true"></span>
+                </td>
+                <td style="width: 25%" class="align-middle">
+                    <label class="form-label fw-semibold small mb-1">Size</label>
+                    <input name="Products[@index].Size" class="form-control form-control-sm border" placeholder="e.g., 50ml" value="@product.Size" />
+                    <span class="text-danger small" data-valmsg-for="Products[@index].Size" data-valmsg-replace="true"></span>
+                </td>
+            </tr>
+
+            <!-- Skin Type, Origin, and Category Row -->
+            <tr>
+                <td class="align-middle">
+                    <label class="form-label fw-semibold small mb-1">Skin Type</label>
+                    <select name="Products[@index].SkinType" class="form-select form-select-sm border">
+                        <option value="">Select Skin Type</option>
+                        <option value="Normal" selected="@(product.SkinType == "Normal")">Normal</option>
+                        <option value="Dry" selected="@(product.SkinType == "Dry")">Dry</option>
+                        <option value="Oily" selected="@(product.SkinType == "Oily")">Oily</option>
+                        <option value="Combination" selected="@(product.SkinType == "Combination")">Combination</option>
+                        <option value="Sensitive" selected="@(product.SkinType == "Sensitive")">Sensitive</option>
+                    </select>
+                    <span class="text-danger small" data-valmsg-for="Products[@index].SkinType" data-valmsg-replace="true"></span>
+                </td>
+                <td class="align-middle">
+                    <label class="form-label fw-semibold small mb-1">Origin</label>
+                    <input name="Products[@index].Origin" class="form-control form-control-sm border" placeholder="Country of origin" value="@product.Origin" />
+                    <span class="text-danger small" data-valmsg-for="Products[@index].Origin" data-valmsg-replace="true"></span>
+                </td>
+                <td class="align-middle">
+                    <label class="form-label fw-semibold small mb-1">Category</label>
+                    <select name="Products[@index].CategoryId" class="form-select form-select-sm border">
+                        <option value="">- Select -</option>
+                        @foreach (var category in ViewBag.Categories as List<SelectListItem>)
+                        {
+                            <option value="@category.Value" selected="@(product.CategoryId.ToString() == category.Value)">@category.Text</option>
+                        }
+                    </select>
+                    <span class="text-danger small" data-valmsg-for="Products[@index].CategoryId" data-valmsg-replace="true"></span>
+                </td>
+                <td colspan="4" class="p-1">
+                    @if (index > 0)
+                    {
+                        <div class="text-end">
+                            <button type="submit" name="operation" value="delete-@index" class="btn btn-outline-danger btn-sm">
+                                <i class="fas fa-trash me-1"></i> Remove Product
+                            </button>
+                        </div>
+                    }
+                </td>
+            </tr>
+
+            <!-- Production and Expiry Date Row -->
+            <tr>
+                <td class="align-middle">
+                    <label class="form-label fw-semibold small mb-1">Production Date</label>
+                    <input name="Products[@index].ProductionDate" class="form-control form-control-sm border" type="date" value="@product.ProductionDate?.ToString("yyyy-MM-dd")" />
+                    <small class="form-text text-muted">mm/dd/yyyy</small>
+                    <span class="text-danger small" data-valmsg-for="Products[@index].ProductionDate" data-valmsg-replace="true"></span>
+                </td>
+                <td class="align-middle">
+                    <label class="form-label fw-semibold small mb-1">Expiry Date</label>
+                    <input name="Products[@index].ExpiryDate" class="form-control form-control-sm border" type="date" value="@product.ExpiryDate?.ToString("yyyy-MM-dd")" />
+                    <small class="form-text text-muted">mm/dd/yyyy</small>
+                    <span class="text-danger small" data-valmsg-for="Products[@index].ExpiryDate" data-valmsg-replace="true"></span>
+                </td>
+                <td colspan="2" class="align-middle">
+                    <label class="form-label fw-semibold small mb-1">Description</label>
+                    <textarea name="Products[@index].Description" class="form-control form-control-sm border" rows="1" placeholder="Enter product description">@product.Description</textarea>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<script>
+    // File name display for product image
+    document.getElementById('productImage_@index')?.addEventListener('change', function() {
+        var fileName = this.files[0]?.name || 'No file chosen';
+        document.getElementById('productImageName_@index').textContent = fileName;
+    });
+</script>

@@ -1,0 +1,217 @@
+﻿@model Selfcare_meets_Beautify.Models.Product
+
+@{
+    ViewData["Title"] = "Edit Product";
+}
+
+<div class="container-fluid px-4">
+   
+    <form asp-action="Edit" method="post" enctype="multipart/form-data">
+        <input type="hidden" asp-for="Id" />
+        <input type="hidden" asp-for="BrandId" />
+        
+        <div class="row">
+            <!-- Product Information -->
+            <div class="col-md-8">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-header bg-primary text-white">
+                        <h4 class="mb-0">
+                            <i class="fas fa-edit me-2"></i>Edit Product
+                            <span class="badge bg-light text-primary ms-2">@Model.Brand?.Name</span>
+                        </h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row g-3">
+                            <!-- Product Name -->
+                            <div class="col-md-6">
+                                <label asp-for="Name" class="form-label fw-semibold">Product Name</label>
+                                <input asp-for="Name" class="form-control border" placeholder="Enter product name" />
+                                <span asp-validation-for="Name" class="text-danger small"></span>
+                            </div>
+
+                            <!-- Price -->
+                            <div class="col-md-3">
+                                <label asp-for="Price" class="form-label fw-semibold">Price</label>
+                                <div class="input-group">
+                                    <input asp-for="Price" class="form-control border" type="number" step="0.01" placeholder="0.00" />
+                                    <span class="input-group-text bg-white border">TK</span>
+                                </div>
+                                <span asp-validation-for="Price" class="text-danger small"></span>
+                            </div>
+
+                            <!-- Size -->
+                            <div class="col-md-3">
+                                <label asp-for="Size" class="form-label fw-semibold">Size</label>
+                                <input asp-for="Size" class="form-control border" placeholder="e.g., 50ml" />
+                                <span asp-validation-for="Size" class="text-danger small"></span>
+                            </div>
+
+                            <!-- Skin Type -->
+                            <div class="col-md-4">
+                                <label asp-for="SkinType" class="form-label fw-semibold">Skin Type</label>
+                                <select asp-for="SkinType" class="form-select border">
+                                    <option value="">Select Skin Type</option>
+                                    <option value="Normal">Normal</option>
+                                    <option value="Dry">Dry</option>
+                                    <option value="Oily">Oily</option>
+                                    <option value="Combination">Combination</option>
+                                    <option value="Sensitive">Sensitive</option>
+                                </select>
+                                <span asp-validation-for="SkinType" class="text-danger small"></span>
+                            </div>
+
+                            <!-- Origin -->
+                            <div class="col-md-4">
+                                <label asp-for="Origin" class="form-label fw-semibold">Origin</label>
+                                <input asp-for="Origin" class="form-control border" placeholder="Country of origin" />
+                                <span asp-validation-for="Origin" class="text-danger small"></span>
+                            </div>
+
+                            <!-- Category -->
+                            <div class="col-md-4">
+                                <label asp-for="CategoryId" class="form-label fw-semibold">Category</label>
+                                <select asp-for="CategoryId" class="form-select border">
+                                    <option value="">- Select -</option>
+                                    @foreach (var category in ViewBag.Categories as List<SelectListItem>)
+                                    {
+                                        <option value="@category.Value">@category.Text</option>
+                                    }
+                                </select>
+                                <span asp-validation-for="CategoryId" class="text-danger small"></span>
+                            </div>
+
+                            <!-- Production Date -->
+                            <div class="col-md-6">
+                                <label asp-for="ProductionDate" class="form-label fw-semibold">Production Date</label>
+                                <input asp-for="ProductionDate" class="form-control border" type="date" />
+                                <small class="form-text text-muted">Provided by mm/dd/yyyy</small>
+                                <span asp-validation-for="ProductionDate" class="text-danger small"></span>
+                            </div>
+
+                            <!-- Expiry Date -->
+                            <div class="col-md-6">
+                                <label asp-for="ExpiryDate" class="form-label fw-semibold">Expiry Date</label>
+                                <input asp-for="ExpiryDate" class="form-control border" type="date" />
+                                <small class="form-text text-muted">Provided by mm/dd/yyyy</small>
+                                <span asp-validation-for="ExpiryDate" class="text-danger small"></span>
+                            </div>
+
+                            <!-- Description -->
+                            <div class="col-12">
+                                <label asp-for="Description" class="form-label fw-semibold">Description</label>
+                                <textarea asp-for="Description" class="form-control border" rows="4" placeholder="Enter product description"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Image Section -->
+            <div class="col-md-4">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-header bg-info text-white">
+                        <h5 class="mb-0"><i class="fas fa-image me-2"></i>Product Image</h5>
+                    </div>
+                    <div class="card-body">
+                        <!-- Current Image -->
+                        @if (!string.IsNullOrEmpty(Model.ImageUrl))
+                        {
+                            <div class="text-center mb-4">
+                                <label class="form-label fw-semibold">Current Image</label>
+                                <div class="border rounded p-3 bg-light">
+                                    <img src="@Model.ImageUrl" class="img-fluid rounded" style="max-height: 200px;" alt="@Model.Name" />
+                                    <div class="mt-2">
+                                        <a href="@Model.ImageUrl" target="_blank" class="btn btn-outline-info btn-sm">
+                                            <i class="fas fa-external-link-alt me-1"></i> View Full Size
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="text-center mb-4">
+                                <label class="form-label fw-semibold">Current Image</label>
+                                <div class="border rounded p-5 bg-light text-muted">
+                                    <i class="fas fa-image fa-3x mb-3"></i>
+                                    <p>No Image Available</p>
+                                </div>
+                            </div>
+                        }
+
+                        <!-- Image Upload -->
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">@(string.IsNullOrEmpty(Model.ImageUrl) ? "Upload Image" : "Upload New Image")</label>
+                            <div class="border border-dashed border-2 rounded p-4 text-center bg-light">
+                                <div class="mb-2">
+                                    <i class="fas fa-cloud-upload-alt fa-2x text-muted"></i>
+                                </div>
+                                <label for="imageFile" class="btn btn-outline-primary btn-sm mb-2 cursor-pointer">
+                                    Choose File
+                                </label>
+                                <input type="file" asp-for="ImageFile" class="d-none" id="imageFile" />
+                                <div class="small text-muted" id="imageFileName">No file chosen</div>
+                            </div>
+                        </div>
+
+                        <!-- Product Info Card -->
+                        <div class="card border-warning">
+                            <div class="card-header bg-warning text-dark">
+                                <h6 class="mb-0"><i class="fas fa-info-circle me-2"></i>Product Information</h6>
+                            </div>
+                            <div class="card-body">
+                                <dl class="row small mb-0">
+                                    <dt class="col-sm-5">Brand:</dt>
+                                    <dd class="col-sm-7">@Model.Brand?.Name</dd>
+                                    
+                                    <dt class="col-sm-5">Last Updated:</dt>
+                                    <dd class="col-sm-7">@DateTime.Now.ToString("MMM dd, yyyy")</dd>
+                                    
+                                    <dt class="col-sm-5">Product ID:</dt>
+                                    <dd class="col-sm-7">#@Model.Id</dd>
+                                </dl>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="row mt-4">
+            <div class="col-12">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <a asp-action="Details" asp-controller="Brand" asp-route-id="@Model.BrandId" 
+                           class="btn btn-outline-secondary">
+                            <i class="fas fa-arrow-left me-2"></i> Back to Brand
+                        </a>
+                    </div>
+                    <div>
+                        <button type="submit" class="btn btn-primary me-2">
+                            <i class="fas fa-save me-2"></i> Update Product
+                        </button>
+                        <a asp-action="Details" asp-controller="Brand" asp-route-id="@Model.BrandId" 
+                           class="btn btn-outline-dark">Cancel</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            // File name display for product image
+            $('#imageFile').change(function() {
+                var fileName = $(this).val().split('\\').pop();
+                $('#imageFileName').text(fileName || 'No file chosen');
+            });
+        });
+    </script>
+}
+
+@* @section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+} *@

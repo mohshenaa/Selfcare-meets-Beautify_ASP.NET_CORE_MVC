@@ -1,0 +1,128 @@
+﻿@model Selfcare_meets_Beautify.Models.Product
+
+@{
+    ViewData["Title"] = "Delete Product";
+}
+
+<style>
+    .btn-group{
+        display:flex;
+        gap:20px;
+    }
+</style>
+
+<div class="container-fluid px-4">
+
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card border-0 shadow-sm">
+                <div class="card-header bg-danger text-white">
+                    <h4 class="mb-0"><i class="fas fa-exclamation-triangle me-2"></i>Delete Product</h4>
+                </div>
+                <div class="card-body">
+                    <div class="alert alert-warning">
+                        
+                        <div class="flex-shrink-0  d-flex">
+                            <i class="fas fa-exclamation-circle fa-2x"></i><h4 class="alert-heading">Warning</h4>
+
+                        </div>
+                        <p class="mb-0">
+                            
+                            You are about to delete this product.  Deleting this product will permanently remove <strong>@Model.Name</strong>
+                            from the system. This action cannot be reversed.
+                        </p>
+                    </div>
+
+                    <div class="row">
+                        <!-- Product Information -->
+                        <div class="col-md-6">
+                            <div class="card border-warning">
+                                <div class="card-header bg-warning">
+                                    <h6 class="mb-0">Product Information</h6>
+                                </div>
+                                <div class="card-body">
+                                    @if (!string.IsNullOrEmpty(Model.ImageUrl))
+                                    {
+                                        <div class="text-center mb-3">
+                                            <img src="@Model.ImageUrl" class="img-fluid rounded" style="max-height: 150px;" alt="@Model.Name" />
+                                        </div>
+                                    }
+                                    <dl class="row mb-0">
+                                        <dt class="col-sm-4">Product:</dt>
+                                        <dd class="col-sm-8 fw-bold text-danger">@Model.Name</dd>
+
+                                        <dt class="col-sm-4">Brand:</dt>
+                                        <dd class="col-sm-8">@Model.Brand?.Name</dd>
+
+                                        <dt class="col-sm-4">Price:</dt>
+                                        <dd class="col-sm-8">@Model.Price?.ToString("C")</dd>
+
+                                        <dt class="col-sm-4">Size:</dt>
+                                        <dd class="col-sm-8">@Model.Size</dd>
+                                    </dl>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Product Details -->
+                        <div class="col-md-6">
+                            <div class="card border-danger">
+                                <div class="card-header bg-danger text-white">
+                                    <h6 class="mb-0">Product Details</h6>
+                                </div>
+                                <div class="card-body">
+                                    <dl class="row mb-0">
+                                        <dt class="col-sm-4">Category:</dt>
+                                        <dd class="col-sm-8">@Model.Category?.Type</dd>
+
+                                        <dt class="col-sm-4">Skin Type:</dt>
+                                        <dd class="col-sm-8">@Model.SkinType</dd>
+
+                                        <dt class="col-sm-4">Origin:</dt>
+                                        <dd class="col-sm-8">@Model.Origin</dd>
+
+                                        @if (Model.ProductionDate.HasValue)
+                                        {
+                                            <dt class="col-sm-4">Production:</dt>
+                                            <dd class="col-sm-8">@Model.ProductionDate.Value.ToString("MMM dd, yyyy")</dd>
+                                        }
+
+                                        @if (Model.ExpiryDate.HasValue)
+                                        {
+                                            <dt class="col-sm-4">Expiry:</dt>
+                                            <dd class="col-sm-8">@Model.ExpiryDate.Value.ToString("MMM dd, yyyy")</dd>
+                                        }
+                                    </dl>
+                                </div>
+                            </div>
+                            <br /><br />
+                            <form asp-action="Delete" method="post">
+                                <input type="hidden" asp-for="Id" />
+
+                                <div class="btn-group ">
+                                    
+                                        <a asp-action="Details" asp-controller="Brand" asp-route-id="@Model.BrandId"
+                                           class="btn btn-outline-secondary">
+                                            <i class="fas fa-arrow-left "></i> Cancle
+                                        </a>
+                                    
+                                        
+                                        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-outline-primary">
+                                            <i class="fas fa-edit "></i> Edit 
+                                        </a>
+                                        <button type="submit" class="btn btn-danger me-2">
+                                            <i class="fas fa-trash "></i> Confirm Delete
+                                        </button>
+                                   
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

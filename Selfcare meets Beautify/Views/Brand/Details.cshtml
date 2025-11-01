@@ -1,0 +1,186 @@
+﻿@model Selfcare_meets_Beautify.Models.Brand
+
+@{
+    ViewData["Title"] = "Brand Details";
+}
+
+<div class="container-fluid px-4">
+
+    <div class="row ">
+        <!-- Brand Information -->
+        <div class=" col-xl-3 col-lg-4 col-md-6 mb-4 ">
+            <div class="card border-0 shadow-sm product-card bg-info">
+                <div class="card-body">
+                    <div class="mb-4">
+                         <h3 class="h4 mb-4 fw-bold text-dark">Brand : &nbsp;@Model.Name</h3>
+
+                    </div>
+
+                    <!-- Brand Logo -->
+                    <div class="text-center mb-4">
+                        @if (!string.IsNullOrEmpty(Model.LogoUrl))
+                        {
+                            <img src="@Model.LogoUrl" class="img-fluid " style="max-height: 200px;" alt="@Model.Name Logo" />
+                        }
+                        else
+                        {
+                            <div class=" p-5 bg-light text-muted">
+                                <i class="fas fa-image fa-3x mb-3"></i>
+                                <p>No Logo Available</p>
+                            </div>
+                        }
+                    </div>
+
+                    <!-- Statistics -->
+                    <div class="mb-4">
+
+                        <div class="d-flex justify-content-between">
+                            <span>Total Products:</span>
+                            <span class="badge bg-primary fs-6">@Model.Products.Count</span>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div>
+                        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-dark d-inline-block btn-sm">
+                            <i class="fas fa-edit me-2"></i> Edit Brand
+                        </a>
+                        <a asp-action="Index" class="btn btn-secondary d-inline-block ms-2 btn-sm">
+                            <i class="fas fa-arrow-left me-2"></i> Back to List
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        @if (Model.Products.Any())
+        {
+            <div class="row ">
+                @foreach (var product in Model.Products)
+                {
+                    <div class="col-xl-3 col-lg-4 col-md-6 mb-4 ">
+                        <div class="card h-100 border-2 shadow-sm product-card ">
+                            <div class="card-body">
+                                <!-- Product Image -->
+                                <div class="text-center mb-3">
+                                    @if (!string.IsNullOrEmpty(product.ImageUrl))
+                                    {
+                                        <img src="@product.ImageUrl" class="img-fluid rounded"
+                                             style="max-height: 150px; width: auto;" alt="@product.Name">
+                                    }
+                                    else
+                                    {
+                                        <div class="bg-light rounded d-flex align-items-center justify-content-center"
+                                             style="height: 150px;">
+                                            <i class="fas fa-cube fa-3x text-muted"></i>
+                                        </div>
+                                    }
+                                </div>
+
+                                <!-- Brand Badge -->
+                                <div class="mb-2">
+                                    <span class="badge bg-primary">@product.Brand?.Name</span>
+                                    <span class="badge bg-info ms-1">@product.Category?.Type</span>
+                                </div>
+
+                                <!-- Product Name -->
+                                <h6 class="card-title fw-bold text-dark mb-2">@product.Name</h6>
+
+                                <!-- Product Details -->
+                                <div class="product-details small">
+                                    <div class="d-flex justify-content-between mb-1">
+                                        <span class="text-muted">Price:</span>
+                                        <span class="fw-semibold text-success">@product.Price?.ToString("C")</span>
+                                    </div>
+
+                                    <div class="d-flex justify-content-between mb-1">
+                                        <span class="text-muted">Size:</span>
+                                        <span class="fw-semibold">@product.Size</span>
+                                    </div>
+
+                                    <div class="d-flex justify-content-between mb-1">
+                                        <span class="text-muted">Skin Type:</span>
+                                        <span class="fw-semibold">@product.SkinType</span>
+                                    </div>
+
+                                    <div class="d-flex justify-content-between mb-1">
+                                        <span class="text-muted">Origin:</span>
+                                        <span class="fw-semibold">@product.Origin</span>
+                                    </div>
+
+                                    @if (product.ExpiryDate.HasValue)
+                                    {
+                                        <div class="d-flex justify-content-between mb-1">
+                                            <span class="text-muted">Expires:</span>
+                                            <span class="fw-semibold @(product.ExpiryDate < DateTime.Now ? "text-danger" : "text-warning")">
+                                                @product.ExpiryDate.Value.ToString("MMM yyyy")
+                                            </span>
+                                        </div>
+                                    }
+
+                                    @if (!string.IsNullOrEmpty(product.Description))
+                                    {
+                                        <div class="mt-2">
+                                            <small class="text-muted">Description:</small>
+                                            <p class="mb-0 small text-truncate" title="@product.Description">@product.Description</p>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+
+                            <!-- Action Buttons -->
+                            <div class="card-footer bg-transparent border-0 pt-0">
+                                <div class="d-grid gap-2">
+                                    <div class="btn-group w-100" role="group">
+                                        <a asp-controller="Product" asp-action="Edit" asp-route-id="@product.Id"
+                                           class="btn btn-outline-warning ">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <a asp-controller="Product" asp-action="Delete" asp-route-id="@product.Id"
+                                           class="btn btn-outline-danger ">
+                                            <i class="fas fa-trash"></i>
+                                        </a>
+                                        <a asp-controller="Brand" asp-action="Details" asp-route-id="@product.BrandId"
+                                           class="btn btn-outline-info ">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            <div class="text-center py-5">
+                <i class="fas fa-cube fa-4x text-muted mb-3"></i>
+                <h5 class="text-muted">No Products Found</h5>
+                <p class="text-muted">This brand doesn't have any products yet.</p>
+                <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">
+                    <i class="fas fa-plus me-2"></i> Add Products
+                </a>
+            </div>
+        }
+    </div>
+</div>
+
+
+<style>
+    .product-card {
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.50) !important;
+        }
+
+    .text-truncate {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+</style>

@@ -1,0 +1,459 @@
+﻿@{
+    ViewData["Title"] = "Home - Skincare Management";
+}
+
+<!-- Hero Section -->
+<section class="hero-section text-white py-1" style="background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);">
+    <div class="container">
+        <div class="row align-items-center min-vh-80">
+            <div class="col-lg-6">
+                <h2 class="display-4 fw-bold mb-4">
+                    Welcome to
+                    <span class="text-cyan">Selfcare meets Beautify</span>
+                </h2>
+                <p class="lead mb-4 text-light">
+                    Your comprehensive solution for managing skincare brands and products.
+                    Streamline your inventory, track product details, and enhance your beauty business operations.
+                </p>
+                <div class="d-flex flex-wrap gap-3">
+                    <a asp-controller="Brand" asp-action="Index" class="btn btn-cyan btn-lg px-4 py-2">
+                        <i class="fas fa-rocket me-2"></i>Get Started
+                    </a>
+                    <a href="#features" class="btn btn-outline-cyan btn-lg px-4 py-2">
+                        <i class="fas fa-info-circle me-2"></i>Learn More
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-6 text-center">
+                <div class="hero-image mt-5 mt-lg-0">
+                    <i class="fas fa-spa fa-10x text-magenta opacity-75"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section id="features" class="py-5" style="background-color: #000000;">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h4 class="display-5 fw-bold text mb-3">Why Choose Our System?</h4>
+            <p class="lead text-light">Powerful features designed for skincare business management</p>
+        </div>
+
+        <div class="row g-4">
+            <!-- Feature 1 -->
+            <div class="col-md-4">
+                <div class="card feature-card h-100 border-0">
+                    <div class="card-body text-center p-4">
+                        <div class="feature-icon mb-3">
+                            <i class="fas fa-tags fa-3x text-cyan"></i>
+                        </div>
+                        <h4 class="fw-bold text-white mb-3">Brand Management</h4>
+                        <p class="text-light">
+                            Easily create, edit, and manage multiple skincare brands with detailed information and logo uploads.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Feature 2 -->
+            <div class="col-md-4">
+                <div class="card feature-card h-100 border-0">
+                    <div class="card-body text-center p-4">
+                        <div class="feature-icon mb-3">
+                            <i class="fas fa-cube fa-3x text-magenta"></i>
+                        </div>
+                        <h4 class="fw-bold text-white mb-3">Product Catalog</h4>
+                        <p class="text-light">
+                            Comprehensive product management with pricing, skin types, categories, and expiration tracking.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Feature 3 -->
+            <div class="col-md-4">
+                <div class="card feature-card h-100 border-0">
+                    <div class="card-body text-center p-4">
+                        <div class="feature-icon mb-3">
+                            <i class="fas fa-images fa-3x text-lime"></i>
+                        </div>
+                        <h4 class="fw-bold text-white mb-3">Image Management</h4>
+                        <p class="text-light">
+                            Upload and manage brand logos and product images with our efficient file upload system.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Quick Stats Section -->
+<section class="py-5 text-white" style="background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-md-3 col-6 mb-4">
+                <div class="stat-item">
+                    <i class="fas fa-building fa-2x mb-2 text-cyan"></i>
+                    <h3 class="fw-bold display-6" id="brandCount">0</h3>
+                    <p class="mb-0">Brands Managed</p>
+                </div>
+            </div>
+            <div class="col-md-3 col-6 mb-4">
+                <div class="stat-item">
+                    <i class="fas fa-cubes fa-2x mb-2 text-magenta"></i>
+                    <h3 class="fw-bold display-6" id="productCount">0</h3>
+                    <p class="mb-0">Products Tracked</p>
+                </div>
+            </div>
+            <div class="col-md-3 col-6 mb-4">
+                <div class="stat-item">
+                    <i class="fas fa-layer-group fa-2x mb-2 text-lime"></i>
+                    <h3 class="fw-bold display-6">7+</h3>
+                    <p class="mb-0">Categories</p>
+                </div>
+            </div>
+            <div class="col-md-3 col-6 mb-4">
+                <div class="stat-item">
+                    <i class="fas fa-users fa-2x mb-2 text-cyan"></i>
+                    <h3 class="fw-bold display-6">24/7</h3>
+                    <p class="mb-0">Support</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- How It Works Section -->
+<section class="py-5" style="background-color: #000000;">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h4 class="display-5 fw-bold text-magenta mb-3">How It Works</h4>
+            <p class="lead text-light">Simple steps to manage your skincare inventory</p>
+        </div>
+
+        <div class="row align-items-center">
+            <div class="col-lg-4 mb-4">
+                <div class="step-card text-center">
+                    <div class="step-number">1</div>
+                    <h4 class="fw-bold text-white mb-3">Create Brands</h4>
+                    <p class="text-light">
+                        Start by adding your skincare brands with logos and basic information.
+                    </p>
+                    <div class="step-icon">
+                        <i class="fas fa-plus-circle fa-2x text-cyan"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 mb-4">
+                <div class="step-card text-center">
+                    <div class="step-number">2</div>
+                    <h4 class="fw-bold text-white mb-3">Add Products</h4>
+                    <p class="text-light">
+                        Add multiple products to each brand with detailed specifications and images.
+                    </p>
+                    <div class="step-icon">
+                        <i class="fas fa-cube fa-2x text-magenta"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 mb-4">
+                <div class="step-card text-center">
+                    <div class="step-number">3</div>
+                    <h4 class="fw-bold text-white mb-3">Manage & Track</h4>
+                    <p class="text-light">
+                        Easily edit, delete, and track all your products and brands in one place.
+                    </p>
+                    <div class="step-icon">
+                        <i class="fas fa-chart-line fa-2x text-lime"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="py-5 text-white" style="background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);">
+    <div class="container">
+        <div class="row justify-content-center text-center">
+            <div class="col-lg-8">
+                <h2 class="display-6 fw-bold mb-4 text-cyan">Ready to Transform Your Skincare Business?</h2>
+                <p class="lead mb-4 text-light">
+                    Join thousands of beauty businesses that trust our system for their product management needs.
+                </p>
+                <a asp-controller="Brand" asp-action="Create" class="btn btn-magenta btn-lg px-5 py-3">
+                    <i class="fas fa-plus me-2"></i>Create Your First Brand
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-black text-white py-4">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <h5 class="fw-bold text-light">Selfcare meets Beautify</h5>
+                <p class="mb-0 text-light">Comprehensive Skincare Product Management System</p>
+            </div>
+            <div class="col-md-6 text-md-end">
+                <p class="mb-0 text-light">&copy; 2025 Selfcare meets Beautify. All rights reserved.</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<style>
+    body {
+        background-color: #000000;
+        color: #ffffff;
+    }
+
+    .text-cyan {
+        color: #00FFFF !important;
+    }
+
+    .text-magenta {
+        color: #FF00FF !important;
+    }
+
+    .text-lime {
+        color: #00FF00 !important;
+    }
+
+    .btn-cyan {
+        background-color: #00FFFF;
+        border-color: #00FFFF;
+        color: #000000;
+        font-weight: 600;
+    }
+
+        .btn-cyan:hover {
+            background-color: #00E0E0;
+            border-color: #00E0E0;
+            color: #000000;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 255, 255, 0.4);
+        }
+
+    .btn-magenta {
+        background-color: #FF00FF;
+        border-color: #FF00FF;
+        color: #ffffff;
+        font-weight: 600;
+    }
+
+        .btn-magenta:hover {
+            background-color: #E000E0;
+            border-color: #E000E0;
+            color: #ffffff;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 0, 255, 0.4);
+        }
+
+    .btn-outline-cyan {
+        border-color: #00FFFF;
+        color: #00FFFF;
+        background: transparent;
+    }
+
+        .btn-outline-cyan:hover {
+            background-color: #00FFFF;
+            border-color: #00FFFF;
+            color: #000000;
+        }
+
+    .hero-section {
+        min-height: 80vh;
+        display: flex;
+        align-items: center;
+    }
+
+    .min-vh-80 {
+        min-height: 80vh;
+    }
+
+    .feature-card {
+        transition: all 0.3s ease;
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.03);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 255, 255, 0.2) !important;
+            border-color: #00FFFF;
+        }
+
+        .feature-card:nth-child(2):hover {
+            box-shadow: 0 20px 40px rgba(255, 0, 255, 0.2) !important;
+            border-color: #FF00FF;
+        }
+
+        .feature-card:nth-child(3):hover {
+            box-shadow: 0 20px 40px rgba(0, 255, 0, 0.2) !important;
+            border-color: #00FF00;
+        }
+
+    .feature-icon {
+        transition: all 0.3s ease;
+    }
+
+    .feature-card:hover .feature-icon {
+        transform: scale(1.15);
+        filter: drop-shadow(0 0 8px currentColor);
+    }
+
+    .stat-item {
+        padding: 20px;
+    }
+
+    .step-card {
+        padding: 30px 20px;
+        position: relative;
+        background: rgba(255, 255, 255, 0.03);
+        border-radius: 12px;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        transition: all 0.3s ease;
+    }
+
+        .step-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .step-card:nth-child(1):hover {
+            border-color: #00FFFF;
+            box-shadow: 0 10px 25px rgba(0, 255, 255, 0.3);
+        }
+
+        .step-card:nth-child(2):hover {
+            border-color: #FF00FF;
+            box-shadow: 0 10px 25px rgba(255, 0, 255, 0.3);
+        }
+
+        .step-card:nth-child(3):hover {
+            border-color: #00FF00;
+            box-shadow: 0 10px 25px rgba(0, 255, 0, 0.3);
+        }
+
+    .step-number {
+        width: 60px;
+        height: 60px;
+        background: linear-gradient(135deg, #00FFFF, #FF00FF);
+        color: #000000;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        font-weight: bold;
+        margin: 0 auto 20px auto;
+        transition: all 0.3s ease;
+    }
+
+    .step-card:nth-child(2) .step-number {
+        background: linear-gradient(135deg, #FF00FF, #00FF00);
+    }
+
+    .step-card:nth-child(3) .step-number {
+        background: linear-gradient(135deg, #00FF00, #00FFFF);
+    }
+
+    .step-card:hover .step-number {
+        transform: scale(1.1);
+        box-shadow: 0 5px 15px currentColor;
+    }
+
+    .step-icon {
+        margin-top: 20px;
+        opacity: 0.8;
+        transition: all 0.3s ease;
+    }
+
+    .step-card:hover .step-icon {
+        opacity: 1;
+        transform: scale(1.1);
+        filter: drop-shadow(0 0 5px currentColor);
+    }
+
+    .hero-image {
+        animation: float 3s ease-in-out infinite;
+    }
+
+    @@keyframes float {
+        0%, 100% {
+            transform: translateY(0px);
+        }
+
+        50% {
+            transform: translateY(-20px);
+        }
+    }
+
+    .display-6 {
+        font-size: 2.5rem;
+    }
+
+    .text-light {
+        color: #cccccc !important;
+    }
+
+    @@media (max-width: 768px) {
+        .display-4 {
+            font-size: 2rem;
+        }
+
+        .display-5 {
+            font-size: 1.8rem;
+        }
+
+        .display-6 {
+            font-size: 1.6rem;
+        }
+    }
+</style>
+
+@section Scripts {
+    <script>
+        // Animated counter for stats
+        function animateCounter(element, target) {
+            let current = 0;
+            const increment = target / 100;
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    element.textContent = target;
+                    clearInterval(timer);
+                } else {
+                    element.textContent = Math.floor(current);
+                }
+            }, 20);
+        }
+
+        // Start counters when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            // You can replace these with actual counts from your database
+            animateCounter(document.getElementById('brandCount'), 50);
+            animateCounter(document.getElementById('productCount'), 200);
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+}

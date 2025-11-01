@@ -1,0 +1,114 @@
+﻿@model Selfcare_meets_Beautify.Models.Brand
+
+@{
+    ViewData["Title"] = "Edit Brand";
+}
+
+<div class="container-fluid px-4">
+    <form asp-action="Edit" method="post" enctype="multipart/form-data" id="brandForm">
+        <input type="hidden" asp-for="Id" />
+
+        <!-- Add hidden fields for products to delete -->
+        @if (ViewBag.ProductsToDelete != null)
+        {
+            foreach (var productId in ViewBag.ProductsToDelete as List<int>)
+            {
+                <input type="hidden" name="productsToDelete" value="@productId" />
+            }
+        }
+
+        <!-- Brand Section - Top Table -->
+        <div class="card border-0 shadow-sm mb-3">
+            <div class="card-header bg-light py-1 px-3">
+                <h6 class="mb-0 fw-bold text-dark">Brand Information</h6>
+            </div>
+            <div class="card-body p-0">
+                <table class="table table-sm table-bordered mb-0">
+                    <thead>
+                        <tr class="table-light">
+                            <th style="width: 25%" class="py-1">Brand Name</th>
+                            <th style="width: 20%" class="py-1">Current Logo</th>
+                            <th style="width: 25%" class="py-1">Upload New Logo</th>
+                            <th style="width: 30%" class="py-1">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="align-middle p-2">
+                                <input asp-for="Name" class="form-control form-control-sm border" placeholder="Brand name" />
+                                <span asp-validation-for="Name" class="text-danger small"></span>
+                            </td>
+                            <td class="align-middle p-2 text-center">
+                                @if (!string.IsNullOrEmpty(Model.LogoUrl))
+                                {
+                                    <img src="@Model.LogoUrl" class="img-fluid rounded border" style="max-height: 50px;" alt="Current logo" />
+                                }
+                                else
+                                {
+                                    <p class="text-muted small mb-0">No logo</p>
+                                }
+                            </td>
+                            <td class="align-middle p-2">
+                                <div class="d-flex flex-column align-items-center">
+                                    <label for="logoFile" class="btn btn-outline-primary btn-xs mb-1 cursor-pointer">
+                                        Choose Logo
+                                    </label>
+                                    <input type="file" asp-for="LogoFile" class="d-none" id="logoFile" />
+                                    <div class="small text-muted text-center" id="logoFileName">No file chosen</div>
+                                </div>
+                            </td>
+                            <td class="align-middle p-2">
+                                <div class="d-flex justify-content-start gap-1">
+                                    <button type="submit" class="btn btn-primary cursor-pointer">
+                                        <i class="fas fa-save me-1"></i> Save
+                                    </button>
+                                    <button type="reset" class="btn btn-outline-secondary ">Reset</button>
+                                    <a asp-action="Index" class="btn btn-outline-dark ">Cancel</a>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Products Section - Bottom Table -->
+        <div class="card border-0 shadow-sm">
+            <div class="card-header bg-light py-1 px-3 d-flex justify-content-between align-items-center">
+                <h6 class="mb-0 fw-bold text-dark">Product Management</h6>
+                <button type="submit" name="operation" value="add" class="btn btn-success btn-sm">
+                    <i class="fas fa-plus me-1"></i> Add Product
+                </button>
+            </div>
+            <div class="card-body p-0">
+                <div id="productsContainer">
+                    @for (int i = 0; i < Model.Products.Count; i++)
+                    {
+                        <partial name="_ProductPartial" 
+                                 model="Model" 
+                                 view-data="@(new ViewDataDictionary(ViewData) { 
+                                     { "Index", i },
+                                     { "IsEdit", true }
+                                 })" />
+                    }
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            // File name display for brand logo
+            $('#logoFile').change(function() {
+                var fileName = $(this).val().split('\\').pop();
+                $('#logoFileName').text(fileName || 'No file chosen');
+            });
+        });
+    </script>
+}
+
+@* @section validation {
+    <partial name="_ValidationScriptsPartial" />
+} *@

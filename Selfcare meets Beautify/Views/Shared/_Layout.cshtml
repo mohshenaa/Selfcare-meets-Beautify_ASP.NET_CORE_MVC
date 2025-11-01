@@ -1,0 +1,186 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Selfcare meets Beautify</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Selfcare_meets_Beautify.styles.css" asp-append-version="true" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
+   
+</head>
+<body>
+    <header class="sticky-top">
+        <nav class="navbar navbar-expand-sm fw-bolder text-dark navbar-toggleable-sm navbar-dark box-shadow mb-3 navbar-custom">
+            <div class="container-fluid">
+                <!-- Brand with clickable spa icon only -->
+                <a class="navbar-brand fw-bold" asp-area="" asp-controller="Home" asp-action="Index">
+                    <i class="fas fa-spa spa-icon-quick-actions" onclick="showQuickActions(event)"></i>Selfcare meets Beautify
+                </a>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                       
+                        <li class="nav-item">
+                            <a class="nav-link fw-bolder" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                        </li>
+                          <li class="nav-item">
+                            <a class="nav-link fw-bolder" asp-area="" asp-controller="Category" asp-action="Index">Category</a>
+                        </li> 
+                        <li class="nav-item">
+                            <a class="nav-link fw-bolder" asp-area="" asp-controller="Brand" asp-action="Index">Brand</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link fw-bolder" asp-area="" asp-controller="Product" asp-action="AllProducts">Products</a>
+                        </li>
+                    </ul>
+                    <partial name="_LoginPartial" />
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <!-- Quick Actions Sidebar -->
+    <div id="quickActionsSidebar" class="quick-actions-sidebar">
+        <div class="sidebar-header">
+            <h5>Quick Actions</h5>
+            <button type="button" class="btn-close" onclick="closeQuickActions()"></button>
+        </div>
+
+        <div class="sidebar-content">
+            <div class="quick-actions-list">
+                <a href="/Admin/Products/Create" class="quick-action-item">
+                    <div class="action-icon">
+                        <i class="fas fa-plus"></i>
+                    </div>
+                    <div class="action-content">
+                        <div class="action-title">Add Product</div>
+                        <div class="action-description">Create new beauty product</div>
+                    </div>
+                </a>
+
+                <a href="/Admin/Brands/Create" class="quick-action-item">
+                    <div class="action-icon">
+                        <i class="fas fa-tag"></i>
+                    </div>
+                    <div class="action-content">
+                        <div class="action-title">Add Brand</div>
+                        <div class="action-description">Create new brand</div>
+                    </div>
+                </a>
+
+                <a href="/Admin/Orders" class="quick-action-item">
+                    <div class="action-icon">
+                        <i class="fas fa-shopping-cart"></i>
+                    </div>
+                    <div class="action-content">
+                        <div class="action-title">View Orders</div>
+                        <div class="action-description">Manage customer orders</div>
+                    </div>
+                    <span class="action-badge badge bg-warning">5</span>
+                </a>
+
+                <a href="/Admin/Customers" class="quick-action-item">
+                    <div class="action-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="action-content">
+                        <div class="action-title">Customers</div>
+                        <div class="action-description">Manage customer accounts</div>
+                    </div>
+                    <span class="action-badge badge bg-info">42</span>
+                </a>
+
+                <a href="/Admin/Inventory" class="quick-action-item">
+                    <div class="action-icon">
+                        <i class="fas fa-boxes"></i>
+                    </div>
+                    <div class="action-content">
+                        <div class="action-title">Inventory</div>
+                        <div class="action-description">Stock management</div>
+                    </div>
+                </a>
+
+                <a href="/Admin/Settings" class="quick-action-item">
+                    <div class="action-icon">
+                        <i class="fas fa-cog"></i>
+                    </div>
+                    <div class="action-content">
+                        <div class="action-title">Settings</div>
+                        <div class="action-description">System configuration</div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Overlay -->
+    <div id="sidebarOverlay" class="sidebar-overlay"></div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2025 - Selfcare meets Beautify - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    <script>
+        // Quick Actions Sidebar Functions
+        function showQuickActions(event) {
+            // Prevent the click from navigating to home page
+            event.preventDefault();
+            event.stopPropagation();
+
+            document.getElementById('quickActionsSidebar').classList.add('show');
+            document.getElementById('sidebarOverlay').classList.add('show');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeQuickActions() {
+            document.getElementById('quickActionsSidebar').classList.remove('show');
+            document.getElementById('sidebarOverlay').classList.remove('show');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            // Close sidebar when clicking on overlay
+            document.getElementById('sidebarOverlay').addEventListener('click', closeQuickActions);
+
+            // Close with Escape key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    closeQuickActions();
+                }
+            });
+
+            // Allow normal navigation when clicking the text part of the brand
+            document.querySelector('.navbar-brand').addEventListener('click', function(e) {
+                // If the click was on the icon, let the icon's handler deal with it
+                if (e.target.classList.contains('spa-icon-quick-actions')) {
+                    e.preventDefault();
+                    showQuickActions(e);
+                }
+            });
+        });
+    </script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+    @await RenderSectionAsync("Validation", required: false)
+</body>
+</html>

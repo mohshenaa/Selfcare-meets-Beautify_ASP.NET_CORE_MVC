@@ -1,0 +1,94 @@
+﻿@model Category
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h3 class="text-center">Category Edit</h3>
+
+
+<br />
+<style>
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f8f9fa;
+        padding: 20px;
+    }
+
+    .form-container {
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        padding: 30px;
+        max-width: 400px;
+        margin: 0 auto;
+    }
+
+    .form-title {
+        color: #333;
+        margin-bottom: 25px;
+        text-align: center;
+        font-weight: 600;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .control-label {
+        font-weight: 600;
+        color: #333;
+        margin-bottom: 8px;
+    }
+
+    .form-control {
+        border-radius: 6px;
+        padding: 10px 15px;
+        border: 1px solid #ddd;
+        transition: all 0.3s;
+        width: 100%;
+    }
+
+        .form-control:focus {
+            border-color: #80bdff;
+            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+        }
+
+    .text-danger {
+        font-size: 0.875rem;
+        margin-top: 5px;
+    }
+
+    .button-group {
+        display: flex;
+        gap: 15px;
+    }
+
+    .btn-lg {
+        padding: 10px 20px;
+        flex: 1;
+    }
+</style>
+<br />
+<div class="form-container">
+
+    <form asp-action="Create">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="Type" class="control-label "></label>
+            <input asp-for="Type" class="form-control" />
+            <span asp-validation-for="Type" class="text-danger"></span>
+        </div>
+
+        <div class="button-group">
+            <a asp-action="Index" style="background-color:skyblue" class="btn btn-lg">Cancel</a>
+            <button type="submit" value="Save" style="background-color:deeppink" class="btn btn-lg">Save</button>
+        </div>
+    </form>
+</div>
+<br />
+<br />
+<br />
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

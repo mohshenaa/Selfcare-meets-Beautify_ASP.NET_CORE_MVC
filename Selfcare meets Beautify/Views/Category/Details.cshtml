@@ -1,0 +1,33 @@
+﻿@model Category
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h3 class="text-center">Category Details</h3>
+<br />
+
+<div class="container d-flex justify-content-center">
+    <div class="card col-md-4 border-3">
+        <div class="card-header bg-info text-dark">
+            <h5 class="mb-0 text-center">Group</h5>
+        </div>
+        <div class="card-body">
+            <div class="row mb-3">
+                <div class="col-sm-6 fw-bold">
+                    @Html.DisplayNameFor(model => model.Type)
+                </div>
+                <div class="col-sm-6 fw-bold text-end">
+                    @Html.DisplayFor(model => model.Type)
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <div class="d-flex justify-content-between gap-2">
+                <a asp-action="Index" class="btn btn-secondary flex-fill btn-lg">Back to List</a>
+                <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-info flex-fill btn-lg">Edit</a>
+            </div>
+        </div>
+    </div>
+</div>
+<br />

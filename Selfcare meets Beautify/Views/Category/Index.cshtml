@@ -1,0 +1,45 @@
+﻿@model IEnumerable<Selfcare_meets_Beautify.Models.Category>
+
+@{
+    ViewData["Title"] = "Category";
+}
+
+<div class="d-flex justify-content-between align-items-center border-bottom pb-3 mb-4">
+<h3 class="text-center">Category</h3>
+<a asp-action="Create" class="btn btn-info ">Create New</a>
+</div>
+
+<style>
+    .button-group {
+      
+        gap: 15px;
+    }
+</style>
+
+<table class="table table-responsive  table-hover table-bordered">
+    <thead class="table-info">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Type)
+            </th>
+            <th class="text-center">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td class="align-middle">
+                    @Html.DisplayFor(modelItem => item.Type)
+                </td>
+                <td class="text-center">
+                    <div class="button-group  ">
+                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-primary">Edit</a>
+                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-info ">Details</a>
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-danger ">Delete</a>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

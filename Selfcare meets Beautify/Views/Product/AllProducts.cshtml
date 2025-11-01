@@ -1,0 +1,241 @@
+﻿@model IEnumerable<Selfcare_meets_Beautify.Models.Product>
+
+@{
+    ViewData["Title"] = "All Products";
+}
+
+<div class="container-fluid px-4">
+    <!-- Header -->
+    <div class="d-flex justify-content-between align-items-center border-bottom pb-3 mb-4">
+        <h1 class="h3 mb-0 text-dark fw-bold">All Products</h1>
+        <div>
+            <a asp-controller="Brand" asp-action="Index" class="btn btn-outline-primary ">
+                <i class="fas fa-arrow-left me-1"></i> Back to Brands
+            </a>
+        </div>
+    </div>
+
+    <!-- Filters and Search Section -->
+    <div class="card border-0 shadow-sm mb-4">
+        <div class="card-body">
+            <form asp-action="AllProducts" method="get" class="row g-3">
+                <div class="col-md-4">
+                    <label class="form-label fw-semibold">Search Products</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" name="searchString"
+                               value="@ViewData["CurrentSearch"]" placeholder="Search products, brands..."/>
+                        <button style="background-color:deeppink" class="btn btn-lg" type="submit">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="col-md-2">
+                    <label class="form-label fw-semibold">Category</label>
+                    <select name="categoryFilter" class="form-select" onchange="this.form.submit()">
+                        <option value="">All Categories</option>
+                        @foreach (var category in ViewBag.Categories)
+                        {
+                            <option value="@category" selected="@(ViewData["CurrentCategory"]?.ToString() == category)">
+                                @category
+                            </option>
+                        }
+                    </select>
+                </div>
+
+                <div class="col-md-2">
+                    <label class="form-label fw-semibold">Skin Type</label>
+                    <select name="skinTypeFilter" class="form-select" onchange="this.form.submit()">
+                        <option value="">All Skin Types</option>
+                        @foreach (var skinType in ViewBag.SkinTypes)
+                        {
+                            <option value="@skinType" selected="@(ViewData["CurrentSkinType"]?.ToString() == skinType)">
+                                @skinType
+                            </option>
+                        }
+                    </select>
+                </div>
+
+                <div class="col-md-2">
+                    <label class="form-label fw-semibold">Sort By</label>
+                    <select name="sortOrder" class="form-select" onchange="this.form.submit()">
+                        <option value="">Name A-Z</option>
+                        <option value="name_desc" selected="@(ViewData["CurrentSort"]?.ToString() == "name_desc")">Name Z-A</option>
+                        <option value="Price" selected="@(ViewData["CurrentSort"]?.ToString() == "Price")">Price Low-High</option>
+                        <option value="price_desc" selected="@(ViewData["CurrentSort"]?.ToString() == "price_desc")">Price High-Low</option>
+                        <option value="Brand" selected="@(ViewData["CurrentSort"]?.ToString() == "Brand")">Brand A-Z</option>
+                        <option value="brand_desc" selected="@(ViewData["CurrentSort"]?.ToString() == "brand_desc")">Brand Z-A</option>
+                    </select>
+                </div>
+
+                <div class="col-md-2 ">
+                    <label class="form-label fw-semibold">Clear</label>
+                    <br />
+                    <a asp-action="AllProducts" class="btn btn-outline-secondary ">Clear Filters</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Products Count -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h5 class="text-muted">
+            @Model.Count() product@(Model.Count() != 1 ? "s" : "") found
+            @if (!string.IsNullOrEmpty(ViewData["CurrentSearch"]?.ToString()))
+            {
+                <span>for "@ViewData["CurrentSearch"]"</span>
+            }
+        </h5>
+    </div>
+
+    <!-- Products Grid -->
+    @if (Model.Any())
+    {
+        <div class="row">
+            @foreach (var product in Model)
+            {
+                <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
+                    <div class="card h-100 border-0 shadow-sm product-card">
+                        <div class="card-body">
+                            <!-- Product Image -->
+                            <div class="text-center mb-3">
+                                @if (!string.IsNullOrEmpty(product.ImageUrl))
+                                {
+                                    <img src="@product.ImageUrl" class="img-fluid rounded"
+                                         style="max-height: 150px; width: auto;" alt="@product.Name">
+                                }
+                                else
+                                {
+                                    <div class="bg-light rounded d-flex align-items-center justify-content-center"
+                                         style="height: 150px;">
+                                        <i class="fas fa-cube fa-3x text-muted"></i>
+                                    </div>
+                                }
+                            </div>
+
+                            <!-- Brand Badge -->
+                            <div class="mb-2">
+                                <span class="badge bg-primary">@product.Brand?.Name</span>
+                                <span class="badge bg-info ms-1">@product.Category?.Type</span>
+                            </div>
+
+                            <!-- Product Name -->
+                            <h6 class="card-title fw-bold text-dark mb-2">@product.Name</h6>
+
+                            <!-- Product Details -->
+                            <div class="product-details small">
+                                <div class="d-flex justify-content-between mb-1">
+                                    <span class="text-muted">Price:</span>
+                                    <span class="fw-semibold text-success">@product.Price?.ToString("C")</span>
+                                </div>
+
+                                <div class="d-flex justify-content-between mb-1">
+                                    <span class="text-muted">Size:</span>
+                                    <span class="fw-semibold">@product.Size</span>
+                                </div>
+
+                                <div class="d-flex justify-content-between mb-1">
+                                    <span class="text-muted">Skin Type:</span>
+                                    <span class="fw-semibold">@product.SkinType</span>
+                                </div>
+
+                                <div class="d-flex justify-content-between mb-1">
+                                    <span class="text-muted">Origin:</span>
+                                    <span class="fw-semibold">@product.Origin</span>
+                                </div>
+
+                                @if (product.ExpiryDate.HasValue)
+                                {
+                                    <div class="d-flex justify-content-between mb-1">
+                                        <span class="text-muted">Expires:</span>
+                                        <span class="fw-semibold @(product.ExpiryDate < DateTime.Now ? "text-danger" : "text-warning")">
+                                            @product.ExpiryDate.Value.ToString("MMM yyyy")
+                                        </span>
+                                    </div>
+                                }
+
+                                @if (!string.IsNullOrEmpty(product.Description))
+                                {
+                                    <div class="mt-2">
+                                        <small class="text-muted">Description:</small>
+                                        <p class="mb-0 small text-truncate" title="@product.Description">@product.Description</p>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="card-footer bg-transparent border-0 pt-0">
+                            <div class="d-grid gap-2">
+                                <div class="btn-group w-100" role="group">
+                                    <a asp-controller="Product" asp-action="Edit" asp-route-id="@product.Id"
+                                       class="btn btn-outline-warning ">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <a asp-controller="Product" asp-action="Delete" asp-route-id="@product.Id"
+                                       class="btn btn-outline-danger ">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
+                                    <a asp-controller="Brand" asp-action="Details" asp-route-id="@product.BrandId"
+                                       class="btn btn-outline-info ">
+                                        <i class="fas fa-eye"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="text-center py-5">
+            <i class="fas fa-search fa-4x text-muted mb-3"></i>
+            <h4 class="text-muted">No Products Found</h4>
+            <p class="text-muted">
+                @if (!string.IsNullOrEmpty(ViewData["CurrentSearch"]?.ToString()))
+                {
+                    <span>No products found for "@ViewData["CurrentSearch"]".</span>
+                }
+                else
+                {
+                    <span>No products available in the system.</span>
+                }
+            </p>
+            <a asp-action="AllProducts" class="btn btn-primary me-2">Clear Search</a>
+            <a asp-controller="Brand" asp-action="Create" class="btn btn-outline-primary">Add New Brand</a>
+        </div>
+    }
+</div>
+
+<style>
+    .product-card {
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.50) !important;
+        }
+
+    .text-truncate {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+</style>
+
+@section Scripts {
+    <script>
+        // Auto-submit form when filters change
+        document.addEventListener('DOMContentLoaded', function() {
+            const selects = document.querySelectorAll('select[onchange]');
+            selects.forEach(select => {
+                select.addEventListener('change', function() {
+                    this.form.submit();
+                });
+            });
+        });
+    </script>
+}

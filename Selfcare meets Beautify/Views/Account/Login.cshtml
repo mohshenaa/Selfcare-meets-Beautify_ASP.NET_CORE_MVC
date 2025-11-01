@@ -1,0 +1,164 @@
+﻿@model Selfcare_meets_Beautify.ViewModels.LoginModel
+
+
+<style>
+
+
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        /*  background-image: url('productos-skincare-10.webp');
+                background-size: cover;
+                background-position: center; */
+    }
+
+
+
+    .login-section {
+        min-height: calc(100vh - 76px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 40px 20px;
+    }
+
+    .login-container {
+        background-color: white;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        padding: 40px;
+        width: 100%;
+        max-width: 450px;
+    }
+
+    .form-label {
+        font-weight: 600;
+        color: black;
+        margin-bottom: 8px;
+    }
+
+    .form-control {
+        border: 1px solid;
+        border-radius: 8px;
+        padding: 12px 15px;
+        margin-bottom: 5px;
+    }
+
+        .form-control:hover {
+            box-shadow: 0 0 0 0.25rem pink;
+        }
+
+    .form-check {
+        margin-top: 10px;
+    }
+
+    .btn-login {
+        background-color: deeppink;
+        border-color: mediumvioletred;
+        padding: 12px 30px;
+        font-weight: 600;
+        border-radius: 8px;
+        color: black;
+        width: 100%;
+    }
+
+        .btn-login:hover {
+            background-color: mediumvioletred;
+            border-color: black;
+        }
+
+    .btn-register {
+        background-color: deeppink;
+        border-color: mediumvioletred;
+        color: black;
+        padding: 12px 30px;
+        font-weight: 600;
+        border-radius: 8px;
+        width: 100%;
+    }
+
+        .btn-register:hover {
+            background-color: mediumvioletred;
+            border-color: black;
+            color: black;
+        }
+
+    .text-danger {
+        color: red;
+        font-size: 0.9rem;
+    }
+
+    .validation-summary {
+        background-color: #fff5f5;
+        border: 1px solid #fed7d7;
+        border-radius: 8px;
+        padding: 15px;
+        margin-bottom: 20px;
+    }
+
+        .validation-summary ul {
+            margin-bottom: 0;
+            padding-left: 20px;
+        }
+
+    .button-group {
+        display: flex;
+        gap: 15px;
+    }
+</style>
+
+
+<!-- Login Section - This is the only part I've modified -->
+<section class="login-section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6">
+                <div class="login-container">
+                    <h2 class="text-center mb-3" style="color:black;">Welcome Back</h2>
+                    <p class="text-center mb-4">Sign in to access your personalized skincare routine</p>
+
+                    <form method="post">
+                        <div class="validation-summary">
+                            <div asp-validation-summary="All"></div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="UserName" class="form-label">Username or Email</label>
+                            <input asp-for="UserName" class="form-control" placeholder="Enter your username or email" />
+                            <span asp-validation-for="UserName" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Password" class="form-label">Password</label>
+                            <input asp-for="Password" class="form-control" placeholder="Enter your password" />
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <div class="form-check">
+                                <input asp-for="RememberMe" class="form-check-input" />
+                                <label asp-for="RememberMe" class="form-check-label">Remember me</label>
+                            </div>
+                            <span asp-validation-for="RememberMe" class="text-danger"></span>
+                        </div>
+
+                        <div class="button-group ">
+                            <button class="btn btn-login ">Login</button>
+                            <a asp-action="Register" class="btn btn-register " asp-route-ReturnUrl="@Model.ReturnUrl">
+                                New? Register
+                            </a>
+                        </div>
+
+
+
+                        <div class="text-center mt-3">
+                            <a href="#" class="text-muted">Forgot your password?</a>
+                        </div>
+                    </form>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
