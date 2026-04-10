@@ -16,7 +16,11 @@ Secure login system
 Role-based authorization (Admin only access)
 Protected routes for all operations
 # 📸 Screenshots
+
+login page 
 <img width="1918" height="904" alt="image" src="https://github.com/user-attachments/assets/28ca172f-41d8-49d4-8222-6c3b64a748d1" />
+
+brands
 <img width="1917" height="914" alt="image" src="https://github.com/user-attachments/assets/d271462a-c046-4ee4-86d1-9134d7a3ccbe" />
 
 🎯 Purpose
