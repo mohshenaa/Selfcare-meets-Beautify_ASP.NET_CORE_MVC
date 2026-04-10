@@ -1,12 +1,6 @@
 # 🌸 Selfcare Meets Beautify – Admin Panel
 
-
-
-
-
-
-
-
+<img width="1900" height="906" alt="Screenshot 2026-04-10 061149" src="https://github.com/user-attachments/assets/0d13e539-6a98-4058-b951-9d921924e451" />
 # 📌 Overview
 
 Selfcare Meets Beautify – Admin Panel is a backend management system built using ASP.NET Core MVC.
@@ -17,9 +11,22 @@ This application is designed only for administrators to manage beauty and self-c
 
 # ✨ Features
 # 🔐 Admin Authentication
+<img width="1909" height="891" alt="image" src="https://github.com/user-attachments/assets/e5edd2bf-f2f4-4082-9457-44669888331f" />
 Secure login system
 Role-based authorization (Admin only access)
 Protected routes for all operations
+# 📸 Screenshots
+<img width="1918" height="904" alt="image" src="https://github.com/user-attachments/assets/28ca172f-41d8-49d4-8222-6c3b64a748d1" />
+<img width="1917" height="914" alt="image" src="https://github.com/user-attachments/assets/d271462a-c046-4ee4-86d1-9134d7a3ccbe" />
+
+🎯 Purpose
+
+This project demonstrates:
+
+Building a secure Admin Panel in ASP.NET Core MVC
+Implementing authentication & authorization
+Managing application data through CRUD operations
+Designing a structured backend system
 # 🛠️ Service Management
 Add new services
 Edit existing services
@@ -84,19 +91,7 @@ Run migrations:
 Update-Database
 Run the project:
 Ctrl + F5
-# 📸 Screenshots
 
-Admin Dashboard
-Service Management Page
-Login Page
-🎯 Purpose
-
-This project demonstrates:
-
-Building a secure Admin Panel in ASP.NET Core MVC
-Implementing authentication & authorization
-Managing application data through CRUD operations
-Designing a structured backend system
 
 # 👩‍💻 Author
 
